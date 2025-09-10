@@ -8,18 +8,6 @@ import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { RelationshipStore } from "@webpack/common";
 
-
-/*function getBlockedUserIds() {
-    // Get all user IDs from the RelationshipStore
-    const relationships = RelationshipStore.getMutableRelationships();
-
-    // Filter for blocked relationships
-    const blockedIds = Object.entries(relationships)
-        .filter(([_, type]) => type === 2) // Relationship type 2 is for blocked users
-        .map(([userId, _]) => userId);
-
-    return blockedIds;
-}*/
 export default definePlugin({
     name: "hideBlockedUsersInGuild",
     description: "Hides blocked users from guild member lists",

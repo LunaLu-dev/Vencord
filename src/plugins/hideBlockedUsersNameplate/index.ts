@@ -9,9 +9,9 @@ import definePlugin from "@utils/types";
 import { RelationshipStore } from "@webpack/common";
 
 
-function getBlockedUserIds() {
+/*function getBlockedUserIds() {
     // Get all user IDs from the RelationshipStore
-    const relationships = RelationshipStore.getRelationships();
+    const relationships = RelationshipStore.getMutableRelationships();
 
     // Filter for blocked relationships
     const blockedIds = Object.entries(relationships)
@@ -19,7 +19,7 @@ function getBlockedUserIds() {
         .map(([userId, _]) => userId);
 
     return blockedIds;
-}
+}*/
 export default definePlugin({
     name: "hideBlockedUsersInGuild",
     description: "Hides blocked users from guild member lists",
@@ -27,7 +27,7 @@ export default definePlugin({
 
     // Use a function to get blocked user IDs dynamically
     get userIdsToHide() {
-        return getBlockedUserIds();
+        return RelationshipStore.getBlockedIDs();
     },
 
     // Target the avatars in the DOM

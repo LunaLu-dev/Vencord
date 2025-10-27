@@ -43,6 +43,17 @@ export default definePlugin({
                 div.autocompleteRowVertical__13533:has(img[src*="${userId}"]) {
                     display: none !important;
                 }
+
+            /* Hide Blocked Users */
+                div.container__6b700 {
+                    display: none !important;
+                }
+
+            /* Hide user rows with this user ID */
+                div.row__89036:has(img[src*="${userId}"]) {
+                    display: none !important;
+                }
+
         `).join("\n");
 
         style.textContent = cssRules;
@@ -65,7 +76,10 @@ export default definePlugin({
             avatarImages.forEach(img => {
                 // Find the parent container (climbing up to find the nameplate container)
                 let element = img;
-                while (element && !element.classList.contains('childContainer__91a9d') && !element.classList.contains('autocompleteRow__13533')) {
+                while (element && !element.classList.contains('childContainer__91a9d') &&
+                !element.classList.contains('autocompleteRow__13533') &&
+                !element.classList.contains('row__89036') &&
+                !element.classList.contains('container__6b700')) {
                     if (element.parentElement) {
                         element = element.parentElement;
                     } else {

@@ -54,6 +54,12 @@ export default definePlugin({
                     display: none !important;
                 }
 
+            /* Hide DM channels with this user ID */
+                li.dm__972a0:has(img[src*="${userId}"]),
+                li.channel__972a0.dm__972a0:has(img[src*="${userId}"]) {
+                    display: none !important;
+                }
+
         `).join("\n");
 
         style.textContent = cssRules;
@@ -79,7 +85,9 @@ export default definePlugin({
                 while (element && !element.classList.contains('childContainer__91a9d') &&
                 !element.classList.contains('autocompleteRow__13533') &&
                 !element.classList.contains('row__89036') &&
-                !element.classList.contains('container__6b700')) {
+                !element.classList.contains('container__6b700') &&
+                !element.classList.contains('dm__972a0') &&
+                !element.classList.contains('channel__972a0')) {
                     if (element.parentElement) {
                         element = element.parentElement;
                     } else {

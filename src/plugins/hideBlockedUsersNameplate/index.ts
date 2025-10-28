@@ -45,8 +45,8 @@ export default definePlugin({
                 }
 
             /* Hide Blocked Users */
-                div.container__6b700 {
-                    display: none !important;
+                div.container__6b700:has(img[src*="${userId}"]) {
+                display: none !important;
                 }
 
             /* Hide user rows with this user ID */

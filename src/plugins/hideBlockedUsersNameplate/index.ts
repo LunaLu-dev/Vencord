@@ -5,16 +5,30 @@
  */
 
 import { Devs } from "@utils/constants";
-import definePlugin from "@utils/types";
+import definePlugin, {OptionType} from "@utils/types";
 import { RelationshipStore } from "@webpack/common";
+import { definePluginSettings } from "@api/Settings";
+
+// Remove this migration once enough time has passed
+const settings = definePluginSettings({
+    applyToIgnored: {
+        description: "Completely hides all ignores users from view",
+        type: OptionType.BOOLEAN,
+        default: false
+    }
+});
 
 export default definePlugin({
     name: "hideBlockedUsersInGuild",
     description: "Hides blocked users from guild member lists",
     authors: [Devs.lunalu],
+    settings,
 
     // Use a function to get blocked user IDs dynamically
     get userIdsToHide() {
+        if (settings.store.applyToIgnored) {
+            return RelationshipStore.getIgnoredIDs().concat(RelationshipStore.getBlockedIDs());
+        }
         return RelationshipStore.getBlockedIDs();
     },
 
@@ -25,7 +39,7 @@ export default definePlugin({
 
         // Generate CSS rules for each user ID
         const cssRules = this.userIdsToHide.map(userId => `
-            /* Hide avatars with this user ID */
+            /* Hide avatars with this user ID in the sidebar *//
             div.avatarStack__44b0c img[src*="${userId}"],
             img[src*="${userId}"] {
                 display: none !important;

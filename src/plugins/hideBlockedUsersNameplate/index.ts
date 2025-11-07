@@ -93,7 +93,7 @@ export default definePlugin({
     },
 
     // Function to check and hide users that match our criteria
-    checkAndHideUsers(mutations) {
+    checkAndHideUsers() {
         for (const userId of this.userIdsToHide) {
             // Find all images containing this user ID
             const avatarImages = document.querySelectorAll(`img[src*="${userId}"]`);
@@ -123,7 +123,7 @@ export default definePlugin({
         }
     },
 
-    // Clean up when plugin is disabled
+    // Clean up when the plugin is disabled
     stop() {
         // Remove the style element
         const styleElement = document.querySelector('style[data-plugin="HideUsers"]');
@@ -137,7 +137,7 @@ export default definePlugin({
     },
 
     // Function to add a user ID to the hide list
-    addUserToHideList(userId) {
+    addUserToHideList(userId:string) {
         if (!this.userIdsToHide.includes(userId)) {
             this.userIdsToHide.push(userId);
             this.stop();
@@ -146,7 +146,7 @@ export default definePlugin({
     },
 
     // Function to remove a user ID from the hide list
-    removeUserFromHideList(userId) {
+    removeUserFromHideList(userId: string) {
         const index = this.userIdsToHide.indexOf(userId);
         if (index !== -1) {
             this.userIdsToHide.splice(index, 1);

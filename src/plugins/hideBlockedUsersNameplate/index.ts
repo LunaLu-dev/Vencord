@@ -63,14 +63,19 @@ export default definePlugin({
                 display: none !important;
                 }
 
-            /* Hide user rows with this user ID */
+            /* Hide user rows with blocked user ID */
                 div.row__89036:has(img[src*="${userId}"]) {
                     display: none !important;
                 }
 
-            /* Hide DM channels with this user ID */
+            /* Hide DM channels with blocked user ID */
                 li.dm__972a0:has(img[src*="${userId}"]),
                 li.channel__972a0.dm__972a0:has(img[src*="${userId}"]) {
+                    display: none !important;
+                }
+
+            /* Hide Friends with blocked user ID */
+                div.peopleListItem_cc6179:has(img[src*="${userId}"]) {
                     display: none !important;
                 }
 
@@ -101,7 +106,8 @@ export default definePlugin({
                 !element.classList.contains('row__89036') &&
                 !element.classList.contains('container__6b700') &&
                 !element.classList.contains('dm__972a0') &&
-                !element.classList.contains('channel__972a0')) {
+                !element.classList.contains('channel__972a0') &&
+                !element.classList.contains('peopleListItem_cc6179')) {
                     if (element.parentElement) {
                         element = element.parentElement;
                     } else {
